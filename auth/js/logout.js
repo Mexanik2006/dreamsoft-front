@@ -5,5 +5,5 @@ function logout() {
     // Foydalanuvchiga muvaffaqiyat xabarini ko‘rsatamiz
     alert('Tizimdan muvaffaqiyatli chiqdingiz!');
     // Bosh sahifaga yo‘naltiramiz
-    window.location.href = 'http://127.0.0.1:5500/index.html';
+    window.location.href = 'https://dreamsoft-front.vercel.app/index.html';
 }

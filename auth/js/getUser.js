@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!token) {
         // Foydalanuvchiga ogohlantirish chiqaramiz
         // Uni login sahifasiga yo‘naltiramiz
-        window.location.href = 'http://127.0.0.1:5500/pages/error.html';
+        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
         // Keyingi kodni bajarishni to‘xtatamiz
         return;
     }
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         // `axios` yordamida POST so‘rov yuboramiz
         const response = await axios.post(
-            'http://localhost:2021/api/get', // So‘rov yuboriladigan server manzili
+            'https://dreamsoft-backend.vercel.app/api/get', // So‘rov yuboriladigan server manzili
             {}, // So‘rovga hech qanday qo‘shimcha ma’lumot yubormaymiz
             {
                 headers: {
@@ -46,9 +46,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Agar xatolik 401 bo‘lsa — bu autentifikatsiya muammosi (token eskirgan yoki noto‘g‘ri)
         if (error.response && error.response.status === 401) {
             // Ogohlantirish ko‘rsatamiz
-            alert('Sessiya tugadi. Iltimos, qaytadan tizimga kiring.');
-            // Login sahifasiga yo‘naltiramiz
-            window.location.href = '../auth/login/Login.html';
+            alert('Sessiya tugagan. Iltimos, qayta tizimga kiring.');
+            localStorage.clear();
+            window.location.href = 'https://dreamsoft-front.vercel.app';
         }
     }
 });

@@ -45,13 +45,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token'); // Kirgan foydalanuvchining tokeni
 
     if (!token) {
-        window.location.href = 'http://127.0.0.1:5500/pages/error.html'; // Login sahifasiga yo‘naltirish
+        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html'; // Login sahifasiga yo‘naltirish
         return;
     }
 
     try {
         // Foydalanuvchining ma’lumotlarini olish
-        const userResponse = await axios.post('http://localhost:2021/api/get', {}, {
+        const userResponse = await axios.post('https://dreamsoft-backend.vercel.app/api/get', {}, {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true
         });
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // Jamoa ro‘yxatini olish
-        const teamResponse = await axios.get('http://localhost:2021/api/team', {
+        const teamResponse = await axios.get('https://dreamsoft-backend.vercel.app/api/team', {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true
         });
@@ -80,7 +80,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Agar sessiya tugagan bo‘lsa
         if (error.response && error.response.status === 401) {
             alert('Sessiya tugagan. Iltimos, qayta tizimga kiring.');
-            window.location.href = '../auth/login/Login.html';
+            localStorage.clear();
+            window.location.href = 'https://dreamsoft-front.vercel.app';
         }
     }
 });
@@ -92,7 +93,7 @@ document.getElementById('team-form')?.addEventListener('submit', async (e) => {
     const token = localStorage.getItem('token'); // Tokenni olish
 
     if (!token) {
-        window.location.href = 'http://127.0.0.1:5500/pages/error.html';
+        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
         return;
     }
 
@@ -113,7 +114,7 @@ document.getElementById('team-form')?.addEventListener('submit', async (e) => {
 
     try {
         // Serverga yangi jamoa aʼzosini yuboramiz
-        await axios.post('http://localhost:2021/api/team/add', {
+        await axios.post('https://dreamsoft-backend.vercel.app/api/team/add', {
             name, login, email, password, role, avatar, hobbi
         }, {
             headers: { Authorization: `Bearer ${token}` },
@@ -121,7 +122,7 @@ document.getElementById('team-form')?.addEventListener('submit', async (e) => {
         });
 
         // Yangilangan jamoani qayta yuklaymiz
-        const teamResponse = await axios.get('http://localhost:2021/api/team', {
+        const teamResponse = await axios.get('https://dreamsoft-backend.vercel.app/api/team', {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true
         });

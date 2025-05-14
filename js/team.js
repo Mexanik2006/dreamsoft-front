@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const gallery = document.getElementById('team-gallery');
 
     try {
-        const response = await fetch('http://localhost:2021/api/team', {
+        const response = await fetch('https://dreamsoft-backend.vercel.app/api/team', {
             credentials: 'include',
             method: 'GET',
             headers: {
@@ -14,12 +14,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         let members = await response.json();
 
+        // MongoDB ObjectId ichidan sana olish funktsiyasi (ID asosida yaratilgan vaqt)
+        const getDateFromObjectId = (id) => new Date(parseInt(id.substring(0, 8), 16) * 1000);
+
         // 1. Admin emaslarni filter qilamiz
         members = members.filter(member => member.role !== 'admin');
-
-        // 2. Oxirgi qo‘shilganlar bo‘yicha saralaymiz (createdAt mavjud bo‘lishi kerak)
-        members.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
+        // 2. Oxirgi qo‘shilganlarga qarab saralaymiz (ObjectId'dan sana chiqarib solishtiramiz)
+        members.sort((a, b) => getDateFromObjectId(b._id) - getDateFromObjectId(a._id));
         // 3. Faqat oxirgi 4 ta a’zoni olamiz
         members = members.slice(0, 4);
 

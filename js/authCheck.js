@@ -17,11 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (token) {
         // Token bo‘lsa — Dashboard ko‘rsatamiz
-        authLink.href = "http://127.0.0.1:5500/auth/pages/dashboard.html";
+        authLink.href = "https://dreamsoft-front.vercel.app/auth/pages/dashboard.html";
         authLink.textContent = "Dashboard";
     } else {
         // Token bo‘lmasa — Login ko‘rsatamiz
-        authLink.href = "http://127.0.0.1:5500/auth/login/Login.html";
+        authLink.href = "https://dreamsoft-front.vercel.app/auth/login/Login.html";
         authLink.textContent = "Login";
     }
 

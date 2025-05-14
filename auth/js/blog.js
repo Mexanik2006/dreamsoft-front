@@ -167,13 +167,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Agar token bo‘lmasa, login sahifasiga yo‘naltiramiz
     if (!token) {
-        window.location.href = 'http://127.0.0.1:5500/pages/error.html';
+        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
         return;
     }
 
     try {
         // Foydalanuvchi ma’lumotlarini olish
-        const userResponse = await axios.post('http://localhost:2021/api/get', {}, {
+        const userResponse = await axios.post('https://dreamsoft-backend.vercel.app/api/get', {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // Blog ma’lumotlarini olish
-        const blogResponse = await axios.get('http://localhost:2021/api/blogs', {
+        const blogResponse = await axios.get('https://dreamsoft-backend.vercel.app/api/blogs', {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -209,8 +209,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         showError(error.response?.data?.error || 'Blog ma’lumotlarini olishda xato');
         // Agar sessiya tugagan bo‘lsa, login sahifasiga yo‘naltiramiz
         if (error.response && error.response.status === 401) {
-            alert('Sessiya tugadi. Qayta kiring.');
-            window.location.href = '../auth/login/Login.html';
+            alert('Sessiya tugagan. Iltimos, qayta tizimga kiring.');
+            localStorage.clear();
+            window.location.href = 'https://dreamsoft-front.vercel.app';
         }
     }
 });
@@ -223,7 +224,7 @@ document.getElementById('blog-form')?.addEventListener('submit', async (e) => {
     // Tokenni tekshiramiz
     const token = localStorage.getItem('token');
     if (!token) {
-        window.location.href = 'http://127.0.0.1:5500/pages/error.html';
+        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
         return;
     }
 
@@ -251,7 +252,7 @@ document.getElementById('blog-form')?.addEventListener('submit', async (e) => {
 
     try {
         // Yangi blog postini serverga yuboramiz
-        const response = await axios.post('http://localhost:2021/api/blogs/add', {
+        const response = await axios.post('https://dreamsoft-backend.vercel.app/api/blogs/add', {
             titles,
             descriptions,
             images
@@ -263,7 +264,7 @@ document.getElementById('blog-form')?.addEventListener('submit', async (e) => {
         });
 
         // Yangilangan blog ro‘yxatini olamiz
-        const blogResponse = await axios.get('http://localhost:2021/api/blogs', {
+        const blogResponse = await axios.get('https://dreamsoft-backend.vercel.app/api/blogs', {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -304,7 +305,7 @@ document.addEventListener('submit', async (e) => {
         // Tokenni tekshiramiz
         const token = localStorage.getItem('token');
         if (!token) {
-            window.location.href = 'http://127.0.0.1:5500/pages/error.html';
+            window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
             return;
         }
 
@@ -321,7 +322,7 @@ document.addEventListener('submit', async (e) => {
 
         try {
             // Kommentni serverga yuboramiz
-            const response = await axios.post(`http://localhost:2021/api/blogs/${blogId}/comment`, {
+            const response = await axios.post(`https://dreamsoft-backend.vercel.app/api/blogs/${blogId}/comment`, {
                 blogId,
                 message
             }, {
@@ -332,7 +333,7 @@ document.addEventListener('submit', async (e) => {
             });
 
             // Yangilangan blog ro‘yxatini olamiz
-            const blogResponse = await axios.get('http://localhost:2021/api/blogs', {
+            const blogResponse = await axios.get('https://dreamsoft-backend.vercel.app/api/blogs', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },

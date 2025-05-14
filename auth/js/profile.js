@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Agar token bo‘lmasa, demak foydalanuvchi login qilmagan
     if (!token) {
-        window.location.href = 'http://127.0.0.1:5500/pages/error.html'; // Login sahifasiga yo‘naltiramiz
+        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html'; // Login sahifasiga yo‘naltiramiz
         return; // Qolgan kodni bajarishni to‘xtatamiz
     }
 
     try {
         // Serverdan foydalanuvchi ma’lumotlarini so‘raymiz
-        const response = await axios.post('http://localhost:2021/api/get', {}, {
+        const response = await axios.post('https://dreamsoft-backend.vercel.app/api/get', {}, {
             headers: {
                 Authorization: `Bearer ${token}` // Tokenni yuboramiz
             },
@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Agar sessiya tugagan bo‘lsa
         if (error.response && error.response.status === 401) {
             alert('Sessiya tugagan. Iltimos, qayta tizimga kiring.');
-            window.location.href = '../auth/login/Login.html'; // Login sahifasiga qaytamiz
+            localStorage.clear();
+            window.location.href = 'https://dreamsoft-front.vercel.app';
         }
     }
 });
@@ -60,7 +61,7 @@ document.getElementById('save-profile').addEventListener('click', async () => {
 
     // Agar foydalanuvchi tizimga kirmagan bo‘lsa
     if (!token) {
-        window.location.href = 'http://127.0.0.1:5500/pages/error.html';
+        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
         return;
     }
 
@@ -75,7 +76,7 @@ document.getElementById('save-profile').addEventListener('click', async () => {
 
     try {
         // Serverga yangilangan ismni yuboramiz
-        const response = await axios.post('http://localhost:2021/api/update', { name }, {
+        const response = await axios.post('https://dreamsoft-backend.vercel.app/api/update', { name }, {
             headers: {
                 Authorization: `Bearer ${token}` // Tokenni yuboramiz
             },

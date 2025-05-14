@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:2021/api/contact', {
+            const response = await axios.post('https://dreamsoft-backend.vercel.app/api/contact', {
                 name,
                 email,
                 message

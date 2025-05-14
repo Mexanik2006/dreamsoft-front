@@ -8,7 +8,7 @@ form.addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await axios.post('http://localhost:2021/api/login',
+        const response = await axios.post('https://dreamsoft-backend.vercel.app/api/login',
             {
                 login,
                 password
@@ -26,7 +26,7 @@ form.addEventListener('submit', async (e) => {
 
         // Agar muvaffaqqiyatli login bo'lsa
         alert('Muvaffaqqiyatli login qilindi!');
-        window.location.href = "http://127.0.0.1:5500/auth/pages/dashboard.html"; // success page, kerak bo'lsa
+        window.location.href = "https://dreamsoft-front.vercel.app/auth/pages/dashboard.html"; // success page, kerak bo'lsa
 
     } catch (error) {
         if (error.response && error.response.data && error.response.data.error) {

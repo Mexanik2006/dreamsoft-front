@@ -51,13 +51,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Agar token bo‘lmasa, login sahifasiga yo‘naltiramiz
     if (!token) {
-        window.location.href = 'http://127.0.0.1:5500/pages/error.html';
+        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
         return;
     }
 
     try {
         // Foydalanuvchi ma’lumotlarini serverdan olamiz
-        const userResponse = await axios.post('http://localhost:2021/api/get', {}, {
+        const userResponse = await axios.post('https://dreamsoft-backend.vercel.app/api/get', {}, {
             headers: {
                 // Tokenni so‘rov bilan yuboramiz
                 Authorization: `Bearer ${token}`
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // Kontakt xabarlarini serverdan olamiz
-        const messagesResponse = await axios.get('http://localhost:2021/api/contacts', {
+        const messagesResponse = await axios.get('https://dreamsoft-backend.vercel.app/api/contacts', {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -92,8 +92,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         showError(error.response?.data?.error || 'Xabarlarni olishda xato');
         // Agar sessiya tugagan bo‘lsa, login sahifasiga yo‘naltiramiz
         if (error.response && error.response.status === 401) {
-            alert('Sessiya tugadi. Qayta kiring.');
-            window.location.href = '../auth/login/Login.html';
+            alert('Sessiya tugagan. Iltimos, qayta tizimga kiring.');
+            localStorage.clear();
+            window.location.href = 'https://dreamsoft-front.vercel.app';
         } else if (error.response && error.response.status === 403) {
             // Agar admin emas bo‘lsa, xabar ko‘rsatamiz
             showError('Faqat adminlar kontakt xabarlarini ko‘ra oladi.');

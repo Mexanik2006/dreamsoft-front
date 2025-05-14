@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const blogContainer = document.querySelector(".blog-posts");
 
     try {
-        const res = await fetch("http://localhost:2021/api/blogs", {
+        const res = await fetch("https://dreamsoft-backend.vercel.app/api/blogs", {
             method: "GET",
             credentials: "include",
             headers: {
@@ -14,11 +14,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         let blogs = await res.json();
 
-        console.log(blogs)
 
         blogContainer.innerHTML = ""; // eski bloglarni tozalaymiz
 
-        blogs.forEach((blog, i) => {
+        const latestBlogs = blogs.slice(0, 3);
+
+        latestBlogs.forEach((blog, i) => {
             const title = blog.title?.[0]?.titleName || "No title";
             const shortTitle = title.length > 50 ? title.slice(0, 50) + "…" : title;
 
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const post = document.createElement("div");
             post.className = "blog-post";
             post.setAttribute("data-aos", "fade-left");
-            post.setAttribute("data-aos-offset", `${700 + i * 50}`);
+            post.setAttribute("data-aos-offset", `${400 + i * 50}`);
             post.setAttribute("data-aos-easing", "ease-in-sine");
 
             post.innerHTML = `
