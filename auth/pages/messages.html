@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- SEO -->
+    <meta name="description" content="Dream Soft Messages - View contact messages.">
+    <meta name="keywords" content="Dream Soft, messages, contact, admin">
+    <meta name="author" content="Dream Soft">
+
+    <!-- Page title and icon -->
+    <title>DreamSoft - Messages</title>
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+    <!-- Bootstrap V5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Axios for API calls -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        :root {
+            --primary: #756AEE;
+            --black: #000000;
+            --white: #FFFFFF;
+            --dark: #3a3a3a;
+            --light-gray: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-gray);
+            margin: 0;
+            padding: 0;
+        }
+
+        .messages-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #1b1829;
+            color: var(--white);
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar .logo {
+            margin-bottom: 30px;
+        }
+
+        .sidebar .logo img {
+            max-width: 150px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar ul li a i {
+            margin-right: 10px;
+        }
+
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background-color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        /* Header */
+        .messages-header {
+            background-color: var(--white);
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .messages-header h1 {
+            font-size: 24px;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info span {
+            font-weight: 500;
+        }
+
+        /* Messages Table */
+        .messages-table {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .messages-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .messages-table th,
+        .messages-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .messages-table th {
+            background-color: var(--primary);
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .messages-table td {
+            color: var(--dark);
+        }
+
+        .messages-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar .logo img {
+                max-width: 50px;
+            }
+
+            .sidebar ul li a span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .messages-header h1 {
+                font-size: 20px;
+            }
+
+            .messages-table {
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="messages-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="../../img/logo-default-191x52.png" alt="Dream Soft logo">
+            </div>
+            <ul>
+                <li><a href="dashboard.html"><i class="bi bi-house"></i><span>Dashboard</span></a></li>
+                <li><a href="profile.html"><i class="bi bi-person-circle"></i><span>Profile</span></a></li>
+                <li><a href="team.html"><i class="bi bi-person"></i><span>Team</span></a></li>
+                <li><a href="blog.html"><i class="bi bi-journal-text"></i><span>Blog</span></a></li>
+                <li><a href="messages.html" class="active"><i class="bi bi-chat"></i><span>Messages</span></a></li>
+                <li><a href="#" onclick="logout()"><i class="bi bi-box-arrow-left"></i><span>Logout</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="messages-header">
+                <h1>Contact Messages</h1>
+                <div class="user-info">
+                    <span id="header-user-name">Loading...</span>
+                </div>
+            </div>
+
+            <!-- Messages Table -->
+            <div class="messages-table" data-aos="fade-up" id="messages-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messages-body">
+                        <!-- Messages will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="../js/message.js"></script>
+    <script src="../js/logout.js"></script>
+
+</body>
+
+</html>
