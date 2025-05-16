@@ -1,8 +1,11 @@
+import { apiUrl } from './urls.js';
+import { notifyLoadComplete } from './loader.js';
+
 document.addEventListener("DOMContentLoaded", async () => {
     const blogContainer = document.querySelector(".blog-posts");
 
     try {
-        const res = await fetch("https://dreamsoft-backend.vercel.app/api/blogs", {
+        const res = await fetch(`${apiUrl}/api/blogs`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -13,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!res.ok) throw new Error("Bloglarni olishda xatolik yuz berdi");
 
         let blogs = await res.json();
-
 
         blogContainer.innerHTML = ""; // eski bloglarni tozalaymiz
 
@@ -40,22 +42,27 @@ document.addEventListener("DOMContentLoaded", async () => {
             post.setAttribute("data-aos-easing", "ease-in-sine");
 
             post.innerHTML = `
-    <div class="post-image">
-        <img src="${image}" alt="" style="width: 370px; height: 307; object-fit: cover;">
-            <div class="post-date">${month}/<span>${day}</span></div>
-    </div>
-    <div class="post-title">
-        <a href="#">${shortTitle}</a>
-    </div>
-    <div class="post-text">
-        <p>${shortDesc}</p>
-    </div>
-    `;
+                <div class="post-image">
+                    <img src="${image}" alt="" style="width: 370px; height: 307px; object-fit: cover;">
+                    <div class="post-date">${month}/<span>${day}</span></div>
+                </div>
+                <div class="post-title">
+                    <a href="#">${shortTitle}</a>
+                </div>
+                <div class="post-text">
+                    <p>${shortDesc}</p>
+                </div>
+            `;
 
             blogContainer.appendChild(post);
         });
+
+        // Notify loader that blog data is loaded successfully
+        notifyLoadComplete('blog', true);
     } catch (err) {
         console.error("Xatolik:", err);
         blogContainer.innerHTML = "<p>Xatolik yuz berdi, bloglar yuklanmadi.</p>";
+        // Notify loader that blog data failed to load
+        notifyLoadComplete('blog', false);
     }
 });

@@ -1,55 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <!-- SEO -->
     <meta name="description" content="Dream Soft Profile - View and edit your user profile.">
     <meta name="keywords" content="Dream Soft, profile, user management, software development">
     <meta name="author" content="Dream Soft">
-
-    <!-- Page title and icon -->
     <title>DreamSoft - Profile</title>
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
-
-    <!-- Bootstrap V5.3 -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
 
     <!-- Axios for API calls -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/style.css">
-
     <style>
         :root {
             --primary: #756AEE;
+            --secondary: #5f55d3;
             --black: #000000;
-            --white: #FFFFFF;
-            --dark: #3a3a3a;
-            --light-gray: #f5f5f5;
+            --white: #FAFAFA;
+            --dark: #2D3748;
+            --light-gray: #E8ECEF;
+            --error: #dc3545;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--light-gray);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
         .profile-container {
@@ -60,21 +55,29 @@
         /* Sidebar */
         .sidebar {
             width: 250px;
-            background-color: #1b1829;
+            background: linear-gradient(180deg, #1b1829 0%, #2c2a4a 100%);
             color: var(--white);
             padding: 20px;
             position: fixed;
             height: 100%;
             overflow-y: auto;
-            transition: width 0.3s ease;
+            transition: width 0.3s ease, transform 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
         }
 
         .sidebar .logo {
             margin-bottom: 30px;
+            text-align: center;
         }
 
         .sidebar .logo img {
             max-width: 150px;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar .logo img:hover {
+            transform: scale(1.05);
         }
 
         .sidebar ul {
@@ -90,69 +93,71 @@
             color: var(--white);
             text-decoration: none;
             font-size: 16px;
+            font-weight: 400;
             display: flex;
             align-items: center;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background 0.3s ease;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .sidebar ul li a i {
-            margin-right: 10px;
+            margin-right: 12px;
+            font-size: 18px;
         }
 
         .sidebar ul li a:hover,
         .sidebar ul li a.active {
-            background-color: var(--primary);
+            background: var(--primary);
+            transform: translateX(5px);
         }
 
         /* Main Content */
         .main-content {
             margin-left: 250px;
             flex-grow: 1;
-            padding: 20px;
+            padding: 30px;
+            transition: margin-left 0.3s ease;
         }
 
         /* Header */
         .profile-header {
-            background-color: var(--white);
-            padding: 15px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .profile-header h1 {
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: 600;
             color: var(--dark);
             margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .user-info {
             display: flex;
             align-items: center;
-        }
-
-        .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
+            gap: 15px;
         }
 
         .user-info span {
             font-weight: 500;
+            color: var(--dark);
         }
 
         /* Profile Card */
         .profile-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
             margin: 0 auto;
             text-align: center;
         }
@@ -162,6 +167,8 @@
             height: 120px;
             border-radius: 50%;
             margin-bottom: 20px;
+            object-fit: cover;
+            background: var(--light-gray);
         }
 
         .profile-card h2 {
@@ -215,11 +222,11 @@
         }
 
         .edit-form button {
-            background-color: var(--primary);
+            background: var(--primary);
             color: var(--white);
             border: none;
             padding: 12px 20px;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
@@ -228,11 +235,11 @@
         }
 
         .edit-form button:hover {
-            background-color: #5f55d3;
+            background: var(--secondary);
         }
 
         .error-message {
-            color: #dc3545;
+            color: var(--error);
             font-size: 14px;
             margin-top: 10px;
             text-align: center;
@@ -258,11 +265,11 @@
             }
 
             .profile-header h1 {
-                font-size: 20px;
+                font-size: 24px;
             }
 
             .profile-card {
-                padding: 20px;
+                padding: 20px 10px;
             }
         }
 
@@ -270,7 +277,13 @@
             .sidebar {
                 width: 100%;
                 height: auto;
-                position: relative;
+                position: fixed;
+                top: 0;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.collapsed {
+                transform: translateX(0);
             }
 
             .main-content {
@@ -282,65 +295,92 @@
                 height: 100px;
             }
         }
+
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1100;
+            background: var(--primary);
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-toggle {
+                display: block;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <button class="sidebar-toggle" id="sidebar-toggle"><i class="bi bi-list"></i></button>
     <div class="profile-container">
         <!-- Sidebar -->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="logo">
-                <img src="../../img/logo-default-191x52.png" alt="Dream Soft logo">
+                <img src="../../img/logo-inverse-191x52.png" alt="Dream Soft logotipi">
             </div>
             <ul>
-                <li><a href="dashboard.html"><i class="bi bi-house"></i><span>Dashboard</span></a></li>
-                <li><a href="profile.html" class="active"><i class="bi bi-person-circle"></i><span>Profile</span></a>
+                <li><a href="dashboard.html"><i class="bi bi-house"></i><span>Asosiy sahifa</span></a></li>
+                <li><a href="profile.html" class="active"><i class="bi bi-person-circle"></i><span>Profil</span></a>
                 </li>
-                <li><a href="team.html"><i class="bi bi-person"></i><span>Team</span></a></li>
+                <li><a href="team.html"><i class="bi bi-person"></i><span>Jamoa</span></a></li>
                 <li><a href="blog.html"><i class="bi bi-journal-text"></i><span>Blog</span></a></li>
-                <li><a href="messages.html"><i class="bi bi-chat"></i><span>Messages</span></a></li>
-                <li><a href="#" onclick="logout()"><i class="bi bi-box-arrow-left"></i><span>Logout</span></a></li>
+                <li><a href="messages.html"><i class="bi bi-chat"></i><span>Xabarlar</span></a></li>
+                <li><a href="../../index.html"><i class="bi bi-house"></i><span>Bosh sahifa</span></a></li>
+                <li><a href="#" onclick="logout()"><i class="bi bi-box-arrow-left"></i><span>Chiqish</span></a></li>
             </ul>
         </div>
-
         <!-- Main Content -->
-        <div class="main-content">
+        <div class="main-content" id="main-content">
             <!-- Header -->
-            <div class="profile-header">
-                <h1>Profile</h1>
+            <div class="profile-header" data-aos="fade-down">
+                <h1>Profil</h1>
                 <div class="user-info">
-                    <span id="header-user-name">Loading...</span>
+                    <span id="header-user-name">Yuklanmoqda...</span>
                 </div>
             </div>
-
             <!-- Profile Card -->
             <div class="profile-card" data-aos="fade-up">
-                <h2 id="profile-name">Loading...</h2>
-                <p id="profile-login">Login: Loading...</p>
-                <p id="profile-email">Email: Not provided</p>
-                <p class="role" id="profile-role">Loading...</p>
+                <img src="../../img/user-default.png" alt="Foydalanuvchi rasmi" id="profile-img">
+                <h2 id="profile-name">Yuklanmoqda...</h2>
+                <p id="profile-login">Login: Yuklanmoqda...</p>
+                <p id="profile-email">Email: Mavjud emas</p>
+                <p class="role" id="profile-role">Yuklanmoqda...</p>
                 <div class="edit-form">
                     <div class="form-group">
-                        <label for="edit-name">Name</label>
-                        <input type="text" id="edit-name" placeholder="Enter your name">
+                        <label for="edit-name">Ism</label>
+                        <input type="text" id="edit-name" placeholder="Ismingizni kiriting">
                     </div>
-                    <button id="save-profile">Save Changes</button>
+                    <button id="save-profile">Saqlash</button>
                 </div>
                 <div class="error-message" id="error-message"></div>
             </div>
         </div>
     </div>
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
+        AOS.init({ duration: 800, once: true });
+        // Sidebar toggle for mobile
+        document.getElementById('sidebar-toggle')?.addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('collapsed');
+        });
     </script>
-    <script src="../js/profile.js"></script>
-    <script src="../js/logout.js"></script>
+    <script type="module" src="../js/profile.js"></script>
+    <script type="module" src="../js/logout.js"></script>
 </body>
 
 </html>

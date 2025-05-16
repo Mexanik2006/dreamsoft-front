@@ -1,3 +1,5 @@
+import { apiUrl } from './urls.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.querySelector('.middle-content form');
     if (!contactForm) {
@@ -26,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await axios.post('https://dreamsoft-backend.vercel.app/api/contact', {
+            const response = await axios.post(`${apiUrl}/api/contact`, {
                 name,
                 email,
                 message

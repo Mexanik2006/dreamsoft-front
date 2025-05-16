@@ -1,15 +1,16 @@
+import { apiUrl, frontUrl } from '../../js/urls.js';
+
 // Sahifa to‘liq yuklangandan so‘ng ishlaydigan asosiy funksiya
 document.addEventListener('DOMContentLoaded', async () => {
 
     // localStorage'dan tokenni olamiz.
     // Token — bu foydalanuvchining tizimga kirganini bildiradigan maxsus kalit.
     const token = localStorage.getItem('token');
-
     // Agar token mavjud bo‘lmasa, foydalanuvchi tizimga kirmagan bo‘ladi
     if (!token) {
         // Foydalanuvchiga ogohlantirish chiqaramiz
         // Uni login sahifasiga yo‘naltiramiz
-        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
+        window.location.href = `${frontUrl}/pages/error.html`;
         // Keyingi kodni bajarishni to‘xtatamiz
         return;
     }
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         // `axios` yordamida POST so‘rov yuboramiz
         const response = await axios.post(
-            'https://dreamsoft-backend.vercel.app/api/get', // So‘rov yuboriladigan server manzili
+            `${apiUrl}/api/get`, // So‘rov yuboriladigan server manzili
             {}, // So‘rovga hech qanday qo‘shimcha ma’lumot yubormaymiz
             {
                 headers: {
@@ -29,7 +30,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 withCredentials: true
             }
         );
-
         // Serverdan foydalanuvchining ma’lumotlari qaytadi
         const user = response.data;
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Ogohlantirish ko‘rsatamiz
             alert('Sessiya tugagan. Iltimos, qayta tizimga kiring.');
             localStorage.clear();
-            window.location.href = 'https://dreamsoft-front.vercel.app';
+            window.location.href = `${frontUrl}`;
         }
     }
 });

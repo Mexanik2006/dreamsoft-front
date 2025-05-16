@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- SEO -->
-    <meta name="description" content="Dream Soft Blog - Read our latest articles and updates.">
+    <meta name="description" content="Dream Soft Blog - View full blog post details.">
     <meta name="keywords" content="Dream Soft, blog, articles, software development">
     <meta name="author" content="Dream Soft">
-    <title>DreamSoft - Blog</title>
+    <title>DreamSoft - Blog Tafsilotlari</title>
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -151,186 +151,138 @@
             color: var(--dark);
         }
 
-        .user-info .add-blog-btn {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .user-info .add-blog-btn:hover {
-            background: var(--secondary);
-        }
-
-        .user-info .add-blog-btn i {
-            font-size: 16px;
-        }
-
-        /* Blog Grid */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .blog-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .blog-card .carousel {
-            margin-bottom: 15px;
-        }
-
-        .blog-card .carousel img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-
-        .blog-card h3 {
-            font-size: 20px;
-            color: var(--dark);
-            margin-bottom: 10px;
-        }
-
-        .blog-card .description {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .blog-card .meta {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 10px;
-        }
-
-        .blog-card .meta .author {
-            color: var(--primary);
-        }
-
-        .blog-card .read-more {
-            font-size: 14px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .blog-card .read-more:hover {
-            text-decoration: underline;
-        }
-
-        .blog-card .action-buttons {
+        .user-info .action-buttons {
             display: flex;
             gap: 10px;
-            margin-top: 10px;
-            justify-content: center;
         }
 
-        .blog-card .action-buttons button {
+        .user-info .action-buttons button {
             padding: 8px 12px;
+            border: none;
             border-radius: 5px;
             font-size: 14px;
             cursor: pointer;
             transition: background 0.3s ease;
-            border: none;
         }
 
-        .blog-card .action-buttons .view-btn {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .blog-card .action-buttons .view-btn:hover {
-            background: var(--secondary);
-        }
-
-        .blog-card .action-buttons .edit-btn {
+        .user-info .action-buttons .edit-btn {
             background: #28a745;
             color: var(--white);
         }
 
-        .blog-card .action-buttons .edit-btn:hover {
+        .user-info .action-buttons .edit-btn:hover {
             background: #218838;
         }
 
-        .blog-card .action-buttons .delete-btn {
+        .user-info .action-buttons .delete-btn {
             background: var(--error);
             color: var(--white);
         }
 
-        .blog-card .action-buttons .delete-btn:hover {
+        .user-info .action-buttons .delete-btn:hover {
             background: #c82333;
         }
 
-        /* Comments */
-        .blog-card .comments-section {
-            margin-top: 15px;
-            border-top: 1px solid #ddd;
-            padding-top: 15px;
+        /* Blog Details */
+        .blog-details {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .blog-card .comment {
+        .blog-details .carousel {
+            margin-bottom: 20px;
+        }
+
+        .blog-details .carousel img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .blog-details h2 {
+            font-size: 28px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .blog-details .description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .blog-details .meta {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .blog-details .meta .author {
+            color: var(--primary);
+        }
+
+        /* Comments */
+        .comments-section {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .comments-section h3 {
+            font-size: 20px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .comment {
             font-size: 14px;
             color: #666;
             margin-bottom: 10px;
         }
 
-        .blog-card .comment .comment-author {
+        .comment .comment-author {
             color: var(--primary);
             font-weight: 500;
         }
 
-        .blog-card .comment .comment-date {
+        .comment .comment-date {
             font-size: 12px;
             color: #888;
         }
 
-        .blog-card .comment-form {
+        .comment-form {
             display: flex;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
-        .blog-card .comment-form textarea {
+        .comment-form textarea {
             flex: 1;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 14px;
             resize: none;
-            height: 60px;
+            height: 80px;
         }
 
-        .blog-card .comment-form button {
+        .comment-form button {
             background: var(--primary);
             color: var(--white);
             border: none;
-            padding: 8px 12px;
+            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
         }
 
-        .blog-card .comment-form button:hover {
+        .comment-form button:hover {
             background: var(--secondary);
         }
 
@@ -436,6 +388,18 @@
             background: var(--secondary);
         }
 
+        .modal-body .error-message {
+            color: var(--error);
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .modal-body .error-message.active {
+            display: block;
+        }
+
         /* Toast styles */
         .toast-container {
             position: fixed;
@@ -475,12 +439,6 @@
         }
 
         /* Responsive */
-        @media (max-width: 992px) {
-            .blog-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            }
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 width: 80px;
@@ -506,6 +464,10 @@
                 flex-wrap: wrap;
                 gap: 5px;
             }
+
+            .blog-details .carousel img {
+                height: 250px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -525,8 +487,8 @@
                 margin-left: 0;
             }
 
-            .blog-grid {
-                grid-template-columns: 1fr;
+            .blog-details .carousel img {
+                height: 200px;
             }
         }
 
@@ -574,18 +536,20 @@
         <div class="main-content" id="main-content">
             <!-- Header -->
             <div class="blog-header" data-aos="fade-down">
-                <h1>Blog</h1>
+                <h1>Blog tafsilotlari</h1>
                 <div class="user-info">
-                    <button id="add-blog-nav" class="add-blog-btn" style="display: none;" data-bs-toggle="modal"
-                        data-bs-target="#addBlogModal">
-                        <i class="bi bi-plus-circle"></i> Post qo‘shish
-                    </button>
+                    <div class="action-buttons" id="admin-actions" style="display: none;">
+                        <button class="edit-btn" data-bs-toggle="modal"
+                            data-bs-target="#editBlogModal">Tahrirlash</button>
+                        <button class="delete-btn" data-bs-toggle="modal"
+                            data-bs-target="#deleteBlogModal">O‘chirish</button>
+                    </div>
                     <span id="header-user-name">Yuklanmoqda...</span>
                 </div>
             </div>
-            <!-- Blog Grid -->
-            <div class="blog-grid" data-aos="fade-up" id="blog-grid">
-                <!-- Blog posts will be dynamically inserted here -->
+            <!-- Blog Details -->
+            <div class="blog-details" id="blog-details" data-aos="fade-up">
+                <!-- Blog details will be dynamically inserted here -->
             </div>
             <!-- Toast Container -->
             <div class="toast-container">
@@ -595,39 +559,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                     <div class="toast-body" id="toast-message"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Add Blog Modal -->
-    <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addBlogModalLabel">Post qo‘shish</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="blog-form">
-                        <div class="form-group">
-                            <label>Titles</label>
-                            <div id="title-inputs"></div>
-                            <button type="button" class="add-btn" onclick="addTitleInput()">Add Title</button>
-                        </div>
-                        <div class="form-group">
-                            <label>Descriptions</label>
-                            <div id="description-inputs"></div>
-                            <button type="button" class="add-btn" onclick="addDescriptionInput()">Add
-                                Description</button>
-                        </div>
-                        <div class="form-group">
-                            <label>Images</label>
-                            <div id="image-inputs"></div>
-                            <button type="button" class="add-btn" onclick="addImageInput()">Add Image</button>
-                        </div>
-                        <button type="submit">Create Post</button>
-                    </form>
-                    <div class="error-message" id="form-error-message"></div>
                 </div>
             </div>
         </div>
@@ -661,7 +592,7 @@
                             <button type="button" class="add-btn" onclick="addImageInput('edit-image-inputs')">Add
                                 Image</button>
                         </div>
-                        <button type="submit">Save Changes</button>
+                        <button type="submit">Saqlash</button>
                     </form>
                     <div class="error-message" id="edit-form-error-message"></div>
                 </div>
@@ -703,7 +634,7 @@
             mainContent.classList.toggle('collapsed');
         });
     </script>
-    <script type="module" src="../js/blog.js"></script>
+    <script type="module" src="../js/blog-details.js"></script>
     <script type="module" src="../js/logout.js"></script>
 </body>
 

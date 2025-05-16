@@ -1,8 +1,11 @@
+import { apiUrl } from './urls.js';
+import { notifyLoadComplete } from './loader.js';
+
 document.addEventListener('DOMContentLoaded', async () => {
     const gallery = document.getElementById('team-gallery');
 
     try {
-        const response = await fetch('https://dreamsoft-backend.vercel.app/api/team', {
+        const response = await fetch(`${apiUrl}/api/team`, {
             credentials: 'include',
             method: 'GET',
             headers: {
@@ -37,16 +40,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             div.style.backgroundImage = `url(${avatarUrl})`;
 
             div.innerHTML = `
-    <div class="employee-info">
-        <h1>${member.name}</h1>
-        <p>${member.hobbi}</p>
-    </div>
-    `;
+                <div class="employee-info">
+                    <h1>${member.name}</h1>
+                    <p>${member.hobbi}</p>
+                </div>
+            `;
 
             gallery.appendChild(div);
         });
+
+        // Notify loader that team data is loaded successfully
+        notifyLoadComplete('team', true);
     } catch (err) {
         console.error('Teamni yuklashda xatolik:', err);
         gallery.innerHTML = '<p>Jamoa ma’lumotlarini olishda xatolik yuz berdi.</p>';
+        // Notify loader that team data failed to load
+        notifyLoadComplete('team', false);
     }
 });

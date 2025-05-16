@@ -1,3 +1,5 @@
+import { frontUrl } from './urls.js';
+
 document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelector(".nav-links");
 
@@ -17,11 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (token) {
         // Token bo‘lsa — Dashboard ko‘rsatamiz
-        authLink.href = "https://dreamsoft-front.vercel.app/auth/pages/dashboard.html";
+        authLink.href = `${frontUrl}/auth/pages/dashboard.html`;
         authLink.textContent = "Dashboard";
     } else {
         // Token bo‘lmasa — Login ko‘rsatamiz
-        authLink.href = "https://dreamsoft-front.vercel.app/auth/login/Login.html";
+        authLink.href = `${frontUrl}/auth/login/Login.html`;
         authLink.textContent = "Login";
     }
 

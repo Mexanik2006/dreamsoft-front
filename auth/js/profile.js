@@ -1,3 +1,5 @@
+import { apiUrl, frontUrl } from '../../js/urls.js';
+
 // Xatolik yoki umumiy xabar ko‘rsatish uchun funksiya
 function showError(message) {
     const errorDiv = document.getElementById('error-message'); // Sahifadagi maxsus xatolik oynasini olamiz
@@ -17,22 +19,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Agar token bo‘lmasa, demak foydalanuvchi login qilmagan
     if (!token) {
-        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html'; // Login sahifasiga yo‘naltiramiz
+        window.location.href = `${frontUrl}/pages/error.html`; // Login sahifasiga yo‘naltiramiz
         return; // Qolgan kodni bajarishni to‘xtatamiz
     }
 
     try {
         // Serverdan foydalanuvchi ma’lumotlarini so‘raymiz
-        const response = await axios.post('https://dreamsoft-backend.vercel.app/api/get', {}, {
+        const response = await axios.post(`${apiUrl}/api/get`, {}, {
             headers: {
                 Authorization: `Bearer ${token}` // Tokenni yuboramiz
             },
             withCredentials: true // Cookie bilan birga yuboriladi
         });
-
+        console.log(response.data); // Javobni konsolga chiqaramiz
         const user = response.data; // Javobdan foydalanuvchi ma’lumotlarini olamiz
 
         // Sahifadagi foydalanuvchi haqidagi maydonlarni to‘ldiramiz
+        document.getElementById('profile-img').src = user.avatar || '../../img/user-default.png';
         document.getElementById('header-user-name').textContent = user.name || 'Foydalanuvchi';
         document.getElementById('profile-name').textContent = user.name || 'Foydalanuvchi';
         document.getElementById('profile-login').textContent = `Login: ${user.login || 'Nomaʼlum'}`;
@@ -50,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (error.response && error.response.status === 401) {
             alert('Sessiya tugagan. Iltimos, qayta tizimga kiring.');
             localStorage.clear();
-            window.location.href = 'https://dreamsoft-front.vercel.app';
+            window.location.href = `${frontUrl}`; // Bosh sahifaga qaytaramiz
         }
     }
 });
@@ -61,7 +64,7 @@ document.getElementById('save-profile').addEventListener('click', async () => {
 
     // Agar foydalanuvchi tizimga kirmagan bo‘lsa
     if (!token) {
-        window.location.href = 'https://dreamsoft-front.vercel.app/pages/error.html';
+        window.location.href = `${frontUrl}/pages/error.html`;
         return;
     }
 
@@ -76,7 +79,7 @@ document.getElementById('save-profile').addEventListener('click', async () => {
 
     try {
         // Serverga yangilangan ismni yuboramiz
-        const response = await axios.post('https://dreamsoft-backend.vercel.app/api/update', { name }, {
+        const response = await axios.post(`${apiUrl}/api/update`, { name }, {
             headers: {
                 Authorization: `Bearer ${token}` // Tokenni yuboramiz
             },
