@@ -1,53 +1,62 @@
+// 1. Kerakli manzillarni yuklaymiz
+// apiUrl server bilan bog‘lanish uchun (masalan, http://localhost:5000)
+// frontUrl saytning asosiy manzili uchun (masalan, http://localhost:3000)
 import { apiUrl, frontUrl } from '../../js/urls.js';
 
-// Sahifa to‘liq yuklangandan so‘ng ishlaydigan asosiy funksiya
+// 2. Sahifa to‘liq yuklanganda ishga tushadigan kod
+// Bu kod foydalanuvchi tizimga kirganligini tekshiradi va ma’lumotlarini ko‘rsatadi
 document.addEventListener('DOMContentLoaded', async () => {
 
-    // localStorage'dan tokenni olamiz.
-    // Token — bu foydalanuvchining tizimga kirganini bildiradigan maxsus kalit.
+    // 3. Foydalanuvchi tizimga kirganligini tekshiramiz
+    // localStorage’dan tokenni olamiz (token tizimga kirish kaliti)
     const token = localStorage.getItem('token');
-    // Agar token mavjud bo‘lmasa, foydalanuvchi tizimga kirmagan bo‘ladi
+
+    // 4. Agar token bo‘lmasa, foydalanuvchi tizimga kirmagan
     if (!token) {
-        // Foydalanuvchiga ogohlantirish chiqaramiz
-        // Uni login sahifasiga yo‘naltiramiz
+        // 5. Foydalanuvchini xato sahifasiga yo‘naltiramiz
         window.location.href = `${frontUrl}/pages/error.html`;
-        // Keyingi kodni bajarishni to‘xtatamiz
+        // 6. Keyingi kodni bajarishni to‘xtatamiz
         return;
     }
 
-    // Agar token mavjud bo‘lsa, serverdan foydalanuvchi ma’lumotlarini so‘raymiz
+    // 7. Token mavjud bo‘lsa, serverdan foydalanuvchi ma’lumotlarini so‘raymiz
     try {
-        // `axios` yordamida POST so‘rov yuboramiz
+        // 8. axios orqali serverga POST so‘rovi yuboramiz
+        // /api/get manzilidan foydalanuvchi ma’lumotlarini olamiz
         const response = await axios.post(
-            `${apiUrl}/api/get`, // So‘rov yuboriladigan server manzili
-            {}, // So‘rovga hech qanday qo‘shimcha ma’lumot yubormaymiz
+            `${apiUrl}/api/get`, // Server manzili
+            {}, // Hech qanday qo‘shimcha ma’lumot yubormaymiz
             {
                 headers: {
-                    // So‘rovga tokenni biriktiramiz — bu autentifikatsiya uchun kerak
+                    // 9. Tokenni so‘rovga qo‘shamiz
+                    // Authorization sarlavhasi orqali token yuboriladi
                     Authorization: `Bearer ${token}`
                 },
-                // Cookie'larni ham birga yuborish uchun
-                withCredentials: true
+                withCredentials: true // Cookie’lar (masalan, token) bilan birga yuboriladi
             }
         );
-        // Serverdan foydalanuvchining ma’lumotlari qaytadi
+
+        // 10. Serverdan kelgan foydalanuvchi ma’lumotlarini saqlaymiz
         const user = response.data;
 
-        // HTML sahifasida foydalanuvchi nomini chiqarish
-        // Agar foydalanuvchi ismi bo‘lmasa, "Foydalanuvchi" deb ko‘rsatiladi
+        // 11. Foydalanuvchi nomini sahifada ko‘rsatamiz
+        // Agar ism bo‘lmasa, “Foydalanuvchi” deb yoziladi
         document.getElementById('user-name').textContent = user.name || 'Foydalanuvchi';
 
     } catch (error) {
-        // Agar so‘rov yuborishda yoki javobni olishda xatolik bo‘lsa, shu yerda ushlanadi
+        // 12. Agar so‘rovda xato bo‘lsa, bu yerda ushlanadi
+        // Masalan, token noto‘g‘ri yoki server javob bermasa
 
-        // Foydalanuvchi nomi o‘rniga "Xatolik" deb yoziladi
+        // 13. Foydalanuvchi nomi o‘rniga “Xatolik” deb yozamiz
         document.getElementById('user-name').textContent = 'Xatolik';
 
-        // Agar xatolik 401 bo‘lsa — bu autentifikatsiya muammosi (token eskirgan yoki noto‘g‘ri)
+        // 14. Xato 401 bo‘lsa, token eskirgan yoki noto‘g‘ri
         if (error.response && error.response.status === 401) {
-            // Ogohlantirish ko‘rsatamiz
+            // 15. Foydalanuvchiga ogohlantirish ko‘rsatamiz
             alert('Sessiya tugagan. Iltimos, qayta tizimga kiring.');
+            // 16. localStorage’dagi barcha ma’lumotlarni tozalaymiz
             localStorage.clear();
+            // 17. Foydalanuvchini asosiy sahifaga yo‘naltiramiz
             window.location.href = `${frontUrl}`;
         }
     }
